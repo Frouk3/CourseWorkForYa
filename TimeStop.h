@@ -8,6 +8,7 @@
 
 static inline constexpr float g_InterRate = 0.3f; // Interpolation rate for smooth transitions
 
+// singleton to manage the effects of time stop, includes lighting as well as the room lighting and parameters
 class TimeStopEffectController : public Hw::cSingleton<TimeStopEffectController>
 {
 	// Snapshot of cLightDataMinimum
@@ -149,6 +150,7 @@ class TimeStopEffectController : public Hw::cSingleton<TimeStopEffectController>
 		cLightDataMinimum* light = &g_LightMng.m_RoomLighting;
 		for (int i = 0; i < 8; i++)
 		{
+			// scary C casting
 			*(Hw::cFcol*)&light->m_AmbCol[i] = TintBlue(m_LightSnapshot.ambient[i], m_Amount);
 			*(Hw::cFcol*)&light->m_DirCol[i] = TintBlue(m_LightSnapshot.directional[i], m_Amount);
 			light->m_HemisphereSkyCol[i] = TintBlue(m_LightSnapshot.hemisphereSky[i], m_Amount);
@@ -206,7 +208,7 @@ public:
 		{
 			ApplyInterpolation();
 
-			if (!m_Enabled && m_Amount == 0.0f) // If disabled and fully interpolated
+			if (!m_Enabled && m_Amount == 0.0f) // If disabled and fully interpolated, also avoids the snapshot being taken again when the time stop is re-enabled a couple of times in a row
 			{
 				ReleaseSnapshotLight();
 			}
@@ -214,6 +216,7 @@ public:
 	}
 };
 
+// singleton to manage the time stop state, time scale and interpolation for a better effect
 class TimeStopController : public Hw::cSingleton<TimeStopController>
 {
 	static inline constexpr float m_TimeStopScale = 0.0000001f;
@@ -224,6 +227,7 @@ class TimeStopController : public Hw::cSingleton<TimeStopController>
 	bool m_bInter = false;
 	bool m_bActive = false;
 
+	// interpolates the time scale for a smooth transition between time stop and normal time
 	void ApplyInterpolation()
 	{
 		if (!m_bInter)

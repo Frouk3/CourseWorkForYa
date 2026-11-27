@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="$(MGR_PLUGIN_SDK)\SafeHook">
-      <UniqueIdentifier>{AE573544-9A67-E114-0321-4633EF4FD0AD}</UniqueIdentifier>
-    </Filter>
     <Filter Include="$(MGR_PLUGIN_SDK)\SafeHook\hde">
       <UniqueIdentifier>{2E0C7189-1A32-3BF0-0378-C0BBEF3C60BC}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,7 @@
     <None Include="build-steps\post-build.bat">
       <Filter>build-steps</Filter>
     </None>
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TimeStop.h" />

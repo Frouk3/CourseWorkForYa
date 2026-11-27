@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build-steps\post-build.bat" />
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TimeStop.h" />
